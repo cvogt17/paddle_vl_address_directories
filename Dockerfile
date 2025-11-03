@@ -2,9 +2,10 @@ FROM ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddleocr-vl:latest
 
 WORKDIR /app
 
-COPY server_api.py .
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-RUN pip install --no-cache-dir fastapi uvicorn
+COPY server_api.py .
 
 ENV PYTHONUNBUFFERED=1 \
     OMP_NUM_THREADS=1 \
