@@ -18,6 +18,7 @@ PIPELINE = PaddleOCRVL(
     use_doc_orientation_classify=False,
     use_doc_unwarping=False,
     use_layout_detection=False,
+    format_block_content=True
 )
 
 def _serialize_outputs(outputs):
