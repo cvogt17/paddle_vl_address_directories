@@ -1,17 +1,14 @@
+# Use the base image that already includes PaddleOCR-VL and dependencies
 FROM ccr-2vdh3abv-pub.cnc.bj.baidubce.com/paddlepaddle/paddleocr-vl:latest
 
 WORKDIR /app
 
+# Copy and install your light dependencies
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
+# Copy your handler script
 COPY server_api.py .
 
-ENV PYTHONUNBUFFERED=1 \
-    OMP_NUM_THREADS=1 \
-    MKL_NUM_THREADS=1 \
-    PORT=8080
-
-EXPOSE 8080
-
-CMD ["uvicorn", "server_api:app", "--host", "0.0.0.0", "--port", "8080"]
+# Use handler (SDK) mode instead of HTTP server
+CMD ["python", "server_api.py"]
