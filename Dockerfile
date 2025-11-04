@@ -1,6 +1,6 @@
 # 1. Start from a RunPod base image with CUDA 12.1
 # This provides the necessary NVIDIA drivers and a base Python environment.
-# Source: [25, 27]
+# Source: [1, 2]
 FROM runpod/base:0.6.2-cuda12.1.0
 
 # 2. Set environment variables to non-interactive to prevent apt from hanging
@@ -8,7 +8,7 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 # 3. Install system-level dependencies for OpenCV (required by paddleocr)
 # Failure to do this will cause an 'ImportError: libGL.so.1'
-# Sources: [29, 30, 31, 33]
+# Sources: [3, 4, 5, 6]
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
     libgl1 \
@@ -33,5 +33,5 @@ COPY rp_handler.py.
 
 # 8. Define the container's entrypoint
 # This command starts the RunPod worker, which waits for jobs
-# Sources: [13, 22]
+# Sources: [7, 8]
 CMD ["python", "-u", "rp_handler.py"]
